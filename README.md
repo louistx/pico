@@ -73,6 +73,16 @@ Release artifacts are published through GitHub Releases.
 
 Prebuilt binaries are available on the [Releases](https://github.com/louistx/pico/releases) page.
 
+### Windows SmartScreen note
+
+PICO is currently distributed without paid code-signing. On first runs, Windows SmartScreen may show a warning for low reputation.
+
+To verify integrity before running, compare the release `SHA256SUMS.txt` with your local file hash:
+
+```powershell
+Get-FileHash .\pico-v0.2.1-win-x64.exe -Algorithm SHA256
+```
+
 ## Development
 
 ### Requirements
