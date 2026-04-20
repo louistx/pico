@@ -47,7 +47,7 @@ The product direction is simple: **paste any image-like clipboard content and sa
 
 ## Current status
 
-PICO is in active MVP development. The core save flow is already working and covered by automated tests.
+PICO `v0.1.0` is the first official release. The core save flow is working and covered by automated tests.
 
 Implemented today:
 
@@ -80,7 +80,7 @@ PICO is currently distributed without paid code-signing. On first runs, Windows 
 To verify integrity before running, compare the release `SHA256SUMS.txt` with your local file hash:
 
 ```powershell
-Get-FileHash .\pico-v0.2.1-win-x64.exe -Algorithm SHA256
+Get-FileHash .\pico-v0.1.0-win-x64.exe -Algorithm SHA256
 ```
 
 ## Development
