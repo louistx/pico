@@ -18,12 +18,18 @@ jobs:
           - os: windows-latest
             rid: win-x64
             framework: net8.0-windows10.0.17763.0
+            single_file: true
+            artifact_ext: exe
           - os: ubuntu-latest
             rid: linux-x64
             framework: net8.0
+            single_file: false
+            artifact_ext: zip
           - os: macos-latest
             rid: osx-arm64
             framework: net8.0
+            single_file: false
+            artifact_ext: zip
 
     runs-on: ${{ matrix.os }}
     env:
@@ -45,21 +51,37 @@ jobs:
           --framework ${{ matrix.framework }}
           --runtime ${{ matrix.rid }}
           --self-contained true
+          -p:PublishSingleFile=${{ matrix.single_file }}
+          -p:EnableCompressionInSingleFile=${{ matrix.single_file }}
+          -p:IncludeNativeLibrariesForSelfExtract=${{ matrix.single_file }}
+          -p:DebugSymbols=false
+          -p:DebugType=none
           -p:EnableWindowsTargeting=${{ env.EnableWindowsTargeting }}
           --output ./artifacts/${{ matrix.rid }}
 
-      - name: Package
+      - name: Package archive (non-Windows)
+        if: matrix.single_file == false
         shell: pwsh
         run: |
           $version = "${{ github.ref_name }}"
           $archiveName = "pico-$version-${{ matrix.rid }}.zip"
           Compress-Archive -Path "./artifacts/${{ matrix.rid }}/*" -DestinationPath "./artifacts/$archiveName"
 
+      - name: Prepare single EXE (Windows)
+        if: matrix.single_file == true
+        shell: pwsh
+        run: |
+          $version = "${{ github.ref_name }}"
+          $exe = Get-ChildItem "./artifacts/${{ matrix.rid }}" -Filter "*.exe" | Select-Object -First 1
+          if (-not $exe) { throw "No executable found in publish output." }
+          $targetName = "pico-$version-${{ matrix.rid }}.exe"
+          Move-Item -LiteralPath $exe.FullName -Destination "./artifacts/$targetName"
+
       - name: Upload release artifact
         uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.rid }}
-          path: ./artifacts/*.zip
+          path: ./artifacts/*.${{ matrix.artifact_ext }}
 
   publish-release:
     needs: build

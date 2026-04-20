@@ -124,4 +124,4 @@ The codebase is being kept intentionally small, readable, and testable. If you w
 
 ## License
 
-No license has been added yet. That decision should be intentional before public reuse is allowed.
+Licensed under MIT. See [LICENSE](LICENSE).
