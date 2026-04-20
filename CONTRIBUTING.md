@@ -38,13 +38,13 @@ dotnet test Pico.sln
 Run on Windows:
 
 ```powershell
-dotnet run --framework net8.0-windows10.0.17763.0 --project C:\path\to\pico\src\Pico\Pico.csproj
+dotnet run --framework net10.0-windows10.0.17763.0 --project C:\path\to\pico\src\Pico\Pico.csproj
 ```
 
 Run on Linux or macOS:
 
 ```bash
-dotnet run --framework net8.0 --project ./src/Pico/Pico.csproj
+dotnet run --framework net10.0 --project ./src/Pico/Pico.csproj
 ```
 
 ## Pull requests

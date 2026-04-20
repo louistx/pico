@@ -77,18 +77,18 @@ Prebuilt binaries are available on the [Releases](https://github.com/louistx/pic
 
 ### Requirements
 
-- .NET 8 SDK
+- .NET 10 SDK
 
 ### Run locally
 
 ```powershell
-dotnet run --framework net8.0-windows10.0.17763.0 --project C:\path\to\pico\src\Pico\Pico.csproj
+dotnet run --framework net10.0-windows10.0.17763.0 --project C:\path\to\pico\src\Pico\Pico.csproj
 ```
 
 On non-Windows platforms:
 
 ```bash
-dotnet run --framework net8.0 --project ./src/Pico/Pico.csproj
+dotnet run --framework net10.0 --project ./src/Pico/Pico.csproj
 ```
 
 ### Build
