@@ -1,6 +1,8 @@
 <Window xmlns="https://github.com/avaloniaui"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Pico.ViewModels"
         x:Class="Pico.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
         Width="520"
         Height="760"
         MinWidth="460"
@@ -102,7 +104,7 @@
                 <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
                   <TextBox Text="{Binding DefaultFolderPath}"
                            IsReadOnly="True"
-                           Watermark="Escolha pasta padrao" />
+                           PlaceholderText="Escolha pasta padrao" />
                   <Button Grid.Column="1"
                           Content="Escolher pasta"
                           Click="ChooseFolderButton_OnClick" />
@@ -111,7 +113,7 @@
 
               <StackPanel Spacing="8">
                 <TextBlock Text="Nome do arquivo" Foreground="{StaticResource TextMutedBrush}" />
-                <TextBox Text="{Binding FileName}" Watermark="img-2026-04-20-153210.png" />
+                <TextBox Text="{Binding FileName}" PlaceholderText="img-2026-04-20-153210.png" />
               </StackPanel>
 
               <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
