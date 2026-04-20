@@ -1,4 +1,4 @@
-# PICO
+# PICO - Paste Image, Create Output
 
 [![CI](https://github.com/louistx/pico/actions/workflows/ci.yml/badge.svg)](https://github.com/louistx/pico/actions/workflows/ci.yml)
 [![Release](https://github.com/louistx/pico/actions/workflows/release.yml/badge.svg)](https://github.com/louistx/pico/actions/workflows/release.yml)
