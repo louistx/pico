@@ -1,0 +1,32 @@
+name: Feature request
+description: Suggest an improvement for PICO
+title: "[Feature] "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion. Please keep the request tied to a real workflow pain.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem are you trying to solve?
+      description: Describe the frustration or repetitive task behind the request.
+      placeholder: I receive data URI image strings often and need to save them in a predictable format.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What would you like to happen?
+      placeholder: Add support for choosing JPG or WebP when the image has no transparency.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Why does this fit PICO?
+      description: Help us understand why this keeps the product lightweight and focused.
+    validations:
+      required: true

@@ -1,0 +1,162 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="Pico.MainWindow"
+        Width="520"
+        Height="760"
+        MinWidth="460"
+        MinHeight="700"
+        Title="PICO">
+  <Window.Resources>
+    <SolidColorBrush x:Key="PanelBrush">#151A26</SolidColorBrush>
+    <SolidColorBrush x:Key="PanelAltBrush">#1D2434</SolidColorBrush>
+    <SolidColorBrush x:Key="AccentBrush">#66E3B4</SolidColorBrush>
+    <SolidColorBrush x:Key="AccentSoftBrush">#1F6C59</SolidColorBrush>
+    <SolidColorBrush x:Key="BorderBrush">#2E374C</SolidColorBrush>
+    <SolidColorBrush x:Key="TextMutedBrush">#90A0BD</SolidColorBrush>
+  </Window.Resources>
+
+  <Grid>
+    <Border Background="#0B0E14" Padding="18">
+      <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="16">
+          <Border Background="{StaticResource PanelBrush}" CornerRadius="24" Padding="20">
+            <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*,Auto">
+              <StackPanel Spacing="6">
+                <TextBlock Text="PICO" FontSize="28" FontWeight="Bold" />
+                <TextBlock Text="Cole imagem ou base64. Salve em segundos."
+                           Foreground="{StaticResource TextMutedBrush}" />
+              </StackPanel>
+
+              <Border Grid.Column="1"
+                      Background="{StaticResource AccentSoftBrush}"
+                      CornerRadius="999"
+                      Padding="12,8"
+                      VerticalAlignment="Top">
+                <TextBlock Text="Ctrl+V" Foreground="{StaticResource AccentBrush}" FontWeight="SemiBold" />
+              </Border>
+            </Grid>
+          </Border>
+
+          <Border Background="{StaticResource PanelBrush}" CornerRadius="24" Padding="18">
+            <StackPanel Spacing="14">
+              <TextBlock Text="Preview" FontSize="18" FontWeight="SemiBold" />
+
+              <Border Background="{StaticResource PanelAltBrush}"
+                      BorderBrush="{StaticResource BorderBrush}"
+                      BorderThickness="1"
+                      CornerRadius="20"
+                      Padding="14">
+                <Grid RowDefinitions="Auto,Auto" ColumnDefinitions="*">
+                  <Border Height="300"
+                          Background="#111723"
+                          CornerRadius="16"
+                          ClipToBounds="True">
+                    <Grid>
+                      <Image x:Name="PreviewImage" Stretch="Uniform" />
+                      <StackPanel x:Name="EmptyPreviewState"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Spacing="8">
+                        <TextBlock Text="Nada colado ainda" FontSize="18" FontWeight="SemiBold" HorizontalAlignment="Center" />
+                        <TextBlock Text="Aceita imagem do clipboard, data URI e base64 puro."
+                                   Foreground="{StaticResource TextMutedBrush}"
+                                   TextAlignment="Center"
+                                   MaxWidth="280" />
+                      </StackPanel>
+                    </Grid>
+                  </Border>
+
+                  <Grid Grid.Row="1" Margin="0,14,0,0" ColumnDefinitions="*,*" RowDefinitions="Auto,Auto">
+                    <Border Margin="0,0,8,0" Background="#111723" CornerRadius="16" Padding="14">
+                      <StackPanel Spacing="4">
+                        <TextBlock Text="Tipo detectado" Foreground="{StaticResource TextMutedBrush}" />
+                        <TextBlock Text="{Binding DetectedType}" FontWeight="SemiBold" />
+                      </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="1" Margin="8,0,0,0" Background="#111723" CornerRadius="16" Padding="14">
+                      <StackPanel Spacing="4">
+                        <TextBlock Text="Formato sugerido" Foreground="{StaticResource TextMutedBrush}" />
+                        <TextBlock Text="{Binding SuggestedFormat}" FontWeight="SemiBold" />
+                      </StackPanel>
+                    </Border>
+
+                    <TextBlock Grid.Row="1"
+                               Grid.ColumnSpan="2"
+                               Margin="4,14,4,0"
+                               Text="{Binding StatusMessage}"
+                               Foreground="{StaticResource TextMutedBrush}"
+                               TextWrapping="Wrap" />
+                  </Grid>
+                </Grid>
+              </Border>
+            </StackPanel>
+          </Border>
+
+          <Border Background="{StaticResource PanelBrush}" CornerRadius="24" Padding="18">
+            <StackPanel Spacing="14">
+              <TextBlock Text="Salvar" FontSize="18" FontWeight="SemiBold" />
+
+              <StackPanel Spacing="8">
+                <TextBlock Text="Pasta padrao" Foreground="{StaticResource TextMutedBrush}" />
+                <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+                  <TextBox Text="{Binding DefaultFolderPath}"
+                           IsReadOnly="True"
+                           Watermark="Escolha pasta padrao" />
+                  <Button Grid.Column="1"
+                          Content="Escolher pasta"
+                          Click="ChooseFolderButton_OnClick" />
+                </Grid>
+              </StackPanel>
+
+              <StackPanel Spacing="8">
+                <TextBlock Text="Nome do arquivo" Foreground="{StaticResource TextMutedBrush}" />
+                <TextBox Text="{Binding FileName}" Watermark="img-2026-04-20-153210.png" />
+              </StackPanel>
+
+              <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                <Button Content="Colar do clipboard"
+                        Click="PasteButton_OnClick"
+                        Classes="accent" />
+                <Button Grid.Column="1"
+                        IsEnabled="{Binding CanSave}"
+                        Content="Salvar arquivo"
+                        Click="SaveButton_OnClick" />
+              </Grid>
+            </StackPanel>
+          </Border>
+        </StackPanel>
+      </ScrollViewer>
+    </Border>
+
+    <Border IsVisible="{Binding IsSaveNotificationVisible}"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Margin="18"
+            MaxWidth="340"
+            Background="#1A2231"
+            BorderBrush="{StaticResource BorderBrush}"
+            BorderThickness="1"
+            CornerRadius="20"
+            Padding="16">
+      <StackPanel Spacing="12">
+        <StackPanel Spacing="4">
+          <TextBlock Text="{Binding SaveNotificationTitle}" FontSize="16" FontWeight="SemiBold" />
+          <TextBlock Text="{Binding SaveNotificationDescription}"
+                     Foreground="{StaticResource TextMutedBrush}"
+                     TextWrapping="Wrap" />
+        </StackPanel>
+
+        <Grid ColumnDefinitions="*,Auto" ColumnSpacing="10">
+          <Button IsEnabled="{Binding CanRevealSavedFile}"
+                  Content="Abrir na pasta"
+                  Click="OpenSavedFileButton_OnClick"
+                  Classes="accent" />
+          <Button Grid.Column="1"
+                  Content="Fechar"
+                  Click="DismissNotificationButton_OnClick" />
+        </Grid>
+      </StackPanel>
+    </Border>
+  </Grid>
+</Window>

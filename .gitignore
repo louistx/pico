@@ -1,0 +1,29 @@
+# Build outputs
+**/bin/
+**/obj/
+artifacts/
+publish/
+
+# IDEs and tooling
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.userprefs
+*.rsuser
+
+# OS noise
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local runtime files
+*.log
+
+# Package managers
+packages/
+
+# Misc
+*.nupkg
+*.snupkg
